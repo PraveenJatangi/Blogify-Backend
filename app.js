@@ -18,12 +18,14 @@ const blogRoutes= require('./routes/blog');
 const { checkForAuthenticationCookie } = require('./middlewares/authentication');
 
 const app = express();
-const PORT = process.env.PORT || 8001;
+const PORT = process.env.PORT;
 
-mongoose.connect( process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/blogify')
-.then((e)=>{
-console.log('mongodb is connected')
-});
+mongoose.connect(process.env.MONGODB_URL, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+})
+.then(() => console.log("✅ MongoDB is connected successfully"))
+.catch(err => console.error("❌ MongoDB Connection Error:", err));
 
 app.use(express.static('public'));
 app.set("view engine","ejs");
