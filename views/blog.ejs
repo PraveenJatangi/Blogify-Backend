@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Add Blog</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('./partials/nav') %> 
+
+    <!-- Add Blog Form Container -->
+    <div class="container d-flex justify-content-center align-items-center mt-5">
+        <div class="card shadow-lg p-4 rounded" style="max-width: 600px; width: 100%;">
+            <h2 class="text-center mb-4 fw-bold">Create a New Blog</h2>
+
+            <form action="/blog/upload" method="POST" enctype="multipart/form-data">     
+                <!-- Cover Image Upload -->
+                <div class="mb-3">
+                    <label for="coverImage" class="form-label fw-semibold">Cover Image</label>
+                    <input type="file" class="form-control" id="coverImage" name="coverImage" required>
+                </div>
+
+                <!-- Blog Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter blog title" required>
+                </div>
+
+                <!-- Blog Content -->
+                <div class="mb-3">
+                    <label for="body" class="form-label fw-semibold">Content</label>
+                    <textarea class="form-control" id="body" name="body" rows="5" placeholder="Write your blog here..." required></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100">Publish Blog</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <%- include('./partials/script') %>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Blogging Application</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('./partials/nav') %> 
+
+    <!-- Blog Container -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 fw-bold">Latest Blogs</h2>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <% blogs.forEach(blog => { %>
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+                    <img src="<%= blog.CoverImgUrl %>" class="card-img-top img-fluid" 
+                        style="height: 200px; object-fit: cover; border-radius: 10px 10px 0 0;" 
+                        alt="Blog Image">
+                    
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold"><%= blog.title %></h5>
+                        <p class="card-text text-muted small">By <%= blog.createdBy.firstName %> | <%= new Date(blog.createdAt).toDateString() %></p>
+                        <p class="card-text text-truncate" style="max-height: 60px;"><%= blog.body %></p>
+
+                        <a href="/blog/<%= blog.id %>" class="btn btn-primary mt-auto">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('./partials/footer') %>
+
+    <!-- Scripts -->
+    <%- include('./partials/script') %>
+</body>
+</html>

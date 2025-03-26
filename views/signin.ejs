@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Sign in</title>
+</head>
+<body >
+    <%- include('./partials/nav') %>
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="col-md-4 col-sm-6 col-10">
+            <div class="card p-4 shadow-sm">
+                <h4 class="text-center mb-3">Sign In</h4>
+                <form action="/user/signin" method="POST">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <%- include('./partials/script') %>
+</body>
+</html>

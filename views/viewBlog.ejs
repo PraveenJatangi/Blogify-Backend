@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title><%= blog.title %> | Blogging Application</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('./partials/nav') %> 
+
+    <!-- Blog Post Container -->
+    <div class="container mt-4">
+        <div class="card shadow-lg p-4 rounded">
+            <h1 class="fw-bold text-center"><%= blog.title %></h1>
+
+            <!-- Cover Image -->
+            <div class="text-center">
+                <img src="<%= blog.CoverImgUrl %>" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+            </div>
+
+            <!-- Blog Content -->
+            <div class="mt-4">
+                <pre class="fs-5"><%= blog.body %></pre>
+            </div>
+
+            <!-- Author Section -->
+            <div class="d-flex align-items-center mt-4 p-3 bg-light rounded">
+              <img src="<%= blog.createdBy.profileImgUrl || '/defaults/blog-profile.png' %>"  
+                     alt="Author" class="rounded-circle" width="50" height="50">
+                <h4 class="ms-3"><%= blog.createdBy.firstName %></h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="container mt-5">
+        <div class="card shadow-lg p-4 rounded">
+            <h2 class="fw-bold">Comments (<%= comments.length %>)</h2>
+
+            <% if (!locals.user) { %>
+                <p class="text-muted">Log in to add comments.</p>
+            <% } else { %>
+                <form action="/blog/comments/<%= blog._id %>" method="POST" class="mt-3">
+                    <div class="input-group">
+                        <input type="text" name="content" class="form-control" placeholder="Write your comment..." required>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </form>
+            <% } %>
+
+            <!-- Display Comments -->
+            <div class="mt-4">
+                <% comments.forEach(comment => { %>
+                    <div class="d-flex align-items-center p-3 border-bottom">
+                        <img src="<%= comment.createdBy.profileImgUrl || '/default-profile.png' %>" 
+                             alt="User" class="rounded-circle" width="40" height="40">
+                        <div class="ms-3">
+                            <h5 class="mb-1"><%= comment.createdBy.firstName %></h5>
+                            <p class="text-muted"><%= comment.content %></p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <%- include('./partials/script') %>
+</body>
+</html>
