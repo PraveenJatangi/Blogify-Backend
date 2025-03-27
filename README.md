@@ -32,7 +32,7 @@ Blogify is a **full-stack blogging platform** built using the **MERN stack (Mong
 
 
 ## 🌍 Live Demo
-🔗 **[Blogify Live](https://blogify-5dai.onrender.com/blog/add-blog)**  
+🔗 **[Blogify Live](https://blogify-5dai.onrender.com/)**  
 
 
 ## 📄 License
