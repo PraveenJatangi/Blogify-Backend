@@ -36,7 +36,7 @@ const storage = new CloudinaryStorage({
 });
 
 
-   const upload = multer({ storage: storage });
+  const upload = multer({ storage: storage });
 
 router.get('/add-blog',(req,res)=>{
 return res.render('blog',{
@@ -46,28 +46,36 @@ return res.render('blog',{
 
 
 
-router.post('/upload', upload.single('coverImage'), async(req,res)=>{
-    const {title,body}= req.body;
-     const blog =await Blog.create({
-        title,
-        body,
-        createdBy:req.user._id,
-        CoverImgUrl:req.file.path, 
+router.post('/upload', upload.single('coverImage'), async (req, res) => {
+  try {
+    const { title, body } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ message: 'Cover image is missing' });
+    }
+
+    const blog = await Blog.create({
+      title,
+      body,
+      createdBy: req.user._id,
+      CoverImgUrl: req.file.path,
     });
-      return res.redirect(`/blog/${blog._id}`);
-    
-})
+
+    return res.status(201).json({ message: 'Blog uploaded successfully', blog });
+  } catch (error) {
+    console.error("Upload Error:", error.message);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+});
 
 router.get('/:id',async (req,res)=>{
    const oneblog =  await Blog.findById(req.params.id).populate("createdBy");
    const comments = await Comment.find({blogId:req.params.id}).populate("createdBy");
-
-   res.render("viewBlog",{
-    user:req.user,
-    blog:oneblog,
-    comments
-   });
-
+  //  res.render("viewBlog",{
+  //   user:req.user,
+  //   blog:oneblog,
+  //   comments
+  //  });
+    res.status(201).json({message:'blog feteched successfully ',oneblog,comments})
 })
 
 router.post ("/comments/:blogId", async(req,res)=>{
