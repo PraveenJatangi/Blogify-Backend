@@ -87,4 +87,14 @@ router.post ("/comments/:blogId", async(req,res)=>{
     return res.redirect(`/blog/${req.params.blogId}`);
  })
 
+ router.delete("/remove/:id",async(req,res)=>{
+        const blogId=req.params.id;
+        const blog= await Blog.findByIdAndDelete(blogId);
+        await Comment.deleteMany({ blogId: blogId });
+        res.json({message:"blog deleted"
+          
+        });
+        
+ })
+
 module.exports= router;

@@ -47,7 +47,7 @@ app.use(express.static(path.resolve("./public")));
 
 
 app.get('/api', async (req, res) => {
-  console.log("Authenticated user from cookie:", req.user);
+
   try {
     const blogs = await Blog.find({}).populate('createdBy');
     let user = null;
